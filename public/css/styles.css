@@ -54,6 +54,12 @@ input {
     /* font-family: 'Courier New', Courier, monospace */
 }
 
+.about {
+    font-family: arial;
+    color: #050000;
+    font-weight: bold;
+}
+
 button {
     cursor: pointer;
     border: 1px solid #888888;
