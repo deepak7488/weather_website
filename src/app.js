@@ -7,11 +7,12 @@ const geocode = require('./util/getgeo.js')
 const forcast = require('./util/weatheforecast.js')
 
 //define path and express config
-const path_directory = path.join(__dirname, '../public1')
+const path_directory = path.join(__dirname, '../public')
 const views_path = path.join(__dirname, '../Templates/views')
 const partial_path = path.join(__dirname, '../Templates/partials')
 const app = express()
-    //setup handlebars engine and views location
+const port = process.env.PORT || 3000;
+//setup handlebars engine and views location
 app.set('views', views_path)
 app.set('view engine', 'hbs')
 hbs.registerPartials(partial_path)
@@ -81,6 +82,6 @@ app.get('*', (req, res) => {
     )
 
 })
-app.listen(3000, () => {
-    console.log('server is up on port 3000!')
+app.listen(port, () => {
+    console.log('server is up on port ' + port + "!")
 })
