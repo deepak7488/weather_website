@@ -11,7 +11,7 @@ const forcast = ({ latitude, longitude, place } = {}, callback) => {
 
 
             callback(undefined,
-                "It is currently " + body.current.temperature + " C And it is " + body.current.precip + " precip " + body.location.lat + " " + body.location.lon
+                "It is currently " + body.current.temperature + " °C And it is " + body.current.humidity + " g.kg-1 Humidity at " + "latitude= " + body.location.lat + " longitude= " + body.location.lon
                 // temperature: body.current.temperature,
                 // place: place
             )
