@@ -60,6 +60,14 @@ input {
     font-weight: bold;
 }
 
+#search_curr {
+    cursor: pointer;
+    border: 1px solid #888888;
+    padding: 8px;
+    background: #888888;
+    color: white;
+}
+
 button {
     cursor: pointer;
     border: 1px solid #888888;

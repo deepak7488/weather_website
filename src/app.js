@@ -2,17 +2,16 @@ const path = require('path')
 const chalk = require('chalk')
 const express = require('express')
 const hbs = require('hbs');
-const { runInNewContext, runInThisContext } = require('vm');
 const geocode = require('./util/getgeo.js')
 const forcast = require('./util/weatheforecast.js')
 
 //define path and express config
 const path_directory = path.join(__dirname, '../public')
-const views_path = path.join(__dirname, '../Templates/views')
-const partial_path = path.join(__dirname, '../Templates/partials')
 const app = express()
 const port = process.env.PORT || 3000;
-//setup handlebars engine and views location
+const views_path = path.join(__dirname, '../Templates/views')
+const partial_path = path.join(__dirname, '../Templates/partials')
+    //setup handlebars engine and views location
 app.set('views', views_path)
 app.set('view engine', 'hbs')
 hbs.registerPartials(partial_path)
@@ -38,11 +37,29 @@ app.get('/help', (req, res) => {
     })
 })
 app.get("/weather", (req, res) => {
+
+    if (req.query.latitude && req.query.longitude) {
+
+        return forcast.forcast({ latitude: req.query.latitude, longitude: req.query.longitude }, (error, forcast, location) => {
+            if (error) {
+                return res.send({
+                    error
+                })
+            }
+            return res.send({
+                forcast,
+                location
+            })
+
+
+        })
+    }
     if (!req.query.address) {
         return res.send({
             error: "must provide address"
         })
     }
+
     geocode.geocode(req.query.address, (error, { latitude, longitude, location } = {}) => {
         if (error) {
             return res.send({ error })
@@ -50,7 +67,7 @@ app.get("/weather", (req, res) => {
         forcast.forcast({ latitude, longitude }, (error, forcast) => {
             if (error) {
                 return res.send({
-                    error1: error
+                    error
                 })
             }
             return res.send({
